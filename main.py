@@ -12,7 +12,7 @@ from .vars import Var
 from aiohttp import web
 from .server import web_server
 from .utils.keepalive import ping_server
-from DEMIGOD-AKSHAY.bot.clients import initialize_clients
+from AKSHAY.bot.clients import initialize_clients
 
 logging.basicConfig(
     level=logging.INFO,
@@ -22,7 +22,7 @@ logging.getLogger("aiohttp").setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 
-ppath = "DEMIGOD-AKSHAY/bot/plugins/*.py"
+ppath = "AKSHAY/bot/plugins/*.py"
 files = glob.glob(ppath)
 StreamBot.start()
 loop = asyncio.get_event_loop()
@@ -46,12 +46,12 @@ async def start_services():
         with open(name) as a:
             patt = Path(a.name)
             plugin_name = patt.stem.replace(".py", "")
-            plugins_dir = Path(f"DEMIGOD-AKSHAY/bot/plugins/{plugin_name}.py")
+            plugins_dir = Path(f"AKSHAY/bot/plugins/{plugin_name}.py")
             import_path = ".plugins.{}".format(plugin_name)
             spec = importlib.util.spec_from_file_location(import_path, plugins_dir)
             load = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(load)
-            sys.modules["DEMIGOD-AKSHAY.bot.plugins." + plugin_name] = load
+            sys.modules["AKSHAY.bot.plugins." + plugin_name] = load
             print("Imported => " + plugin_name)
     if Var.ON_HEROKU:
         print("------------------ Starting Keep Alive Service ------------------")
@@ -76,7 +76,7 @@ async def start_services():
     if Var.ON_HEROKU:
         print('                        app runnng on =>> {}'.format(Var.FQDN))
     print('---------------------------------------------------------------------------------------------------------')
-    print('Give a star to my repo https://github.com/DEMIGOD-AKSHAY/filestreambot-pro  also follow me for new bots')
+    print('Give a star to my repo https://github.com/AKSHAY/filestreambot-pro  also follow me for new bots')
     print('---------------------------------------------------------------------------------------------------------')
     await idle()
 
