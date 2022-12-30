@@ -18,5 +18,5 @@ RUN mkdir /File-To-Link
 WORKDIR /File-To-Link
 COPY start.sh /start.sh
 
-# Running MessageSearchBot
+# Running FileToLink
 CMD ["/bin/bash", "/start.sh"]
