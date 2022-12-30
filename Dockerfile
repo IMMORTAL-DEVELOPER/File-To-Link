@@ -1,22 +1,9 @@
-# Python Based Docker
-FROM python:latest
+FROM python:3.8-slim-buster
+WORKDIR /app
 
-# Installing Packages
-RUN apt update && apt upgrade -y
-RUN apt install git curl python3-pip ffmpeg -y
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
-# Updating Pip Packages
-RUN pip3 install -U pip
+COPY . .
 
-# Copying Requirements
-COPY requirements.txt /requirements.txt
-
-# Installing Requirements
-RUN cd /
-RUN pip3 install -U -r requirements.txt
-RUN mkdir /File-To-Link
-WORKDIR /File-To-Link
-COPY start.sh /start.sh
-
-# Running FileToLink
-CMD ["/bin/bash", "/start.sh"]
+CMD python3 main.py
